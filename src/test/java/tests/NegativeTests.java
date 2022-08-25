@@ -1,3 +1,5 @@
+package tests;
+
 import framework.MyListener;
 import framework.Roles;
 import io.qameta.allure.Step;
