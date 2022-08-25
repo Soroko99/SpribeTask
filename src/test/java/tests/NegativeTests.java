@@ -9,8 +9,7 @@ import org.testng.annotations.Test;
 import pojo.PlayerId;
 import pojo.User;
 
-import static framework.PropertyReader.getTestData;
-import static framework.PropertyReader.getUserDefaultValues;
+import static framework.PropertyReader.*;
 import static methods.HTTPMethods.createdUserId;
 
 @Listeners(MyListener.class)
@@ -27,24 +26,24 @@ public class NegativeTests {
                 getTestData("postPassword", getUserDefaultValues("password")),
                 getTestData("postRole", getUserDefaultValues("role")),
                 getTestData("postScreenName", getUserDefaultValues("screenName"))
-        ), "/player/create/", Roles.user.name(), 403);
+        ), getEndpoint("createUser"), Roles.user.name(), 403);
     }
 
     @Step
     @Test(priority = 2)
     public void getById() {
-        HTTPMethods.getById(playerId, "/player/get", 404);
+        HTTPMethods.getById(playerId, getEndpoint("getById"), 404);
     }
 
     @Step
     @Test(priority = 3)
     public void getAllPlayers() {
-        HTTPMethods.getAll("/player/get/all", 404);
+        HTTPMethods.getAll(getEndpoint("getAllPlayers"), 404);
     }
 
     @Step
     @Test(priority = 4)
-    public void updateUser() {
+    public void updatePlayer() {
         HTTPMethods.updateUser(new User(
                 getTestData("patchAge", getUserDefaultValues("age")),
                 getTestData("patchGender", getUserDefaultValues("gender")),
@@ -52,12 +51,12 @@ public class NegativeTests {
                 getTestData("patchPassword", getUserDefaultValues("password")),
                 getTestData("patchRole", getUserDefaultValues("role")),
                 getTestData("patchScreenName", getUserDefaultValues("screenName"))
-        ), "/player/update", Roles.supervisor.name(), playerId.getId(), 404);
+        ), getEndpoint("updatePlayer"), Roles.supervisor.name(), playerId.getId(), 404);
     }
 
     @Step
     @Test(priority = 5)
     public void deleteById() {
-        HTTPMethods.deleteUser(playerId, "/player/delete", Roles.user.name(), 403);
+        HTTPMethods.deleteUser(playerId, getEndpoint("deleteById"), Roles.user.name(), 403);
     }
 }

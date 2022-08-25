@@ -26,24 +26,24 @@ public class PositiveTests {
                 getTestData("postPassword", getUserDefaultValues("password")),
                 getTestData("postRole", getUserDefaultValues("role")),
                 getTestData("postScreenName", getUserDefaultValues("screenName"))
-        ), "/player/create/", Roles.supervisor.name(), 200);
+        ), getEndpoint("createUser"), Roles.supervisor.name(), 200);
     }
 
     @Step
     @Test(priority = 2)
     public void getById() {
-        HTTPMethods.getById(playerId, "/player/get", 200);
+        HTTPMethods.getById(playerId, getEndpoint("getById"), 200);
     }
 
     @Step
     @Test(priority = 3)
     public void getAllPlayers() {
-        HTTPMethods.getAll("/player/get/all", 200);
+        HTTPMethods.getAll(getEndpoint("getAllPlayers"), 200);
     }
 
     @Step
     @Test(priority = 4)
-    public void updateUser() {
+    public void updatePlayer() {
         HTTPMethods.updateUser(new User(
                 getTestData("patchAge", getUserDefaultValues("age")),
                 getTestData("patchGender", getUserDefaultValues("gender")),
@@ -51,18 +51,18 @@ public class PositiveTests {
                 getTestData("patchPassword", getUserDefaultValues("password")),
                 getTestData("patchRole", getUserDefaultValues("role")),
                 getTestData("patchScreenName", getUserDefaultValues("screenName"))
-        ), "/player/update", Roles.supervisor.name(), playerId.getId(), 200);
+        ), getEndpoint("updatePlayer"), Roles.supervisor.name(), playerId.getId(), 200);
     }
 
     @Step
     @Test(priority = 5)
     public void deleteById() {
-        HTTPMethods.deleteUser(playerId, "/player/delete/", Roles.supervisor.name(), 200);
+        HTTPMethods.deleteUser(playerId, getEndpoint("deleteById"), Roles.supervisor.name(), 200);
     }
 
     @Step
     @Test(priority = 6)
     public void getByIdToVerifyDelete() {
-        HTTPMethods.getById(playerId, "/player/get", 404);
+        HTTPMethods.getById(playerId, getEndpoint("getById"), 404);
     }
 }

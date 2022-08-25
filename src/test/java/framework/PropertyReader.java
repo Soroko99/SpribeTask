@@ -8,6 +8,7 @@ import java.util.Properties;
 public class PropertyReader {
 
     private static final String defaultValuesPropertyPath = "src/test/resources/create_user_data.properties";
+    private static final String endpointsPropertyPath = "src/test/resources/endpoints.properties";
 
     public static String getTestData(String property, String defaultValue) {
         String propertyString;
@@ -17,6 +18,22 @@ public class PropertyReader {
             throw new PropertyIsNotSpecifiedProperly(property, e);
         }
         return propertyString;
+    }
+
+    public static String getEndpoint(String propertyName) {
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(endpointsPropertyPath);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Properties property = new Properties();
+        try {
+            property.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return property.getProperty(propertyName);
     }
 
     public static String getUserDefaultValues(String propertyName) {
