@@ -32,36 +32,4 @@ public class User implements Pojo{
         this.role = role;
         this.screenName = screenName;
     }
-
-    public static JSONObject userToJson(Pojo user) {
-        return new JSONObject(user);
-    }
-
-    public String getAge() {
-        return age;
-    }
-
-    public String getEditor() {
-        return editor;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public String getScreenName() {
-        return screenName;
-    }
 }
